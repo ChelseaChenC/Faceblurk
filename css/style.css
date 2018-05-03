@@ -1,0 +1,56 @@
+
+
+body {
+  display: flex;
+  /* background-color: #888888; */
+}
+
+/*.half
+{
+  z-index: 4;
+  flex-grow: 1;
+}*/
+
+#main {
+  /*display: flex;*/
+  flex: 1;
+  margin: auto;
+  width: 960px;
+  border: 1px solid #eeeeee;
+  padding: 0px;
+}
+
+#_imageData{
+  display: block;
+  position: fixed;
+  z-index: -1;
+}
+
+#defaultCanvas0{
+  position: absolute;
+  left:2em;
+  top: 5em;
+}
+
+
+
+#_imageData {
+  opacity: 0;
+  /* zoom: 20%; */
+  position: absolute;
+  top: 0;
+  /* right: 0; */
+}
+
+.screenshots{
+  /*flex: 2;*/
+  position: absolute;
+  left: 45em;
+  top: 2em;
+}
+
+.screenshot {
+  width: 180px;
+  height: auto;
+  padding-bottom: 2em;
+}
