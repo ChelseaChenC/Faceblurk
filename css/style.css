@@ -29,10 +29,16 @@ body {
 #defaultCanvas0{
   position: absolute;
   left:2em;
-  top: 5em;
+  top: 11.5em;
 }
 
-
+#logo{
+  position: absolute;
+  top:0em;
+  left: 1.5em;
+  width: 25%;
+  height: auto;
+}
 
 #_imageData {
   opacity: 0;
@@ -46,7 +52,7 @@ body {
   /*flex: 2;*/
   position: absolute;
   left: 45em;
-  top: 2em;
+  top: 1.5em;
 }
 
 .screenshot {
