@@ -7,13 +7,59 @@ var resolutionAnalyze = null;
 var brfv4 = null;
 var sdkReady = false;
 
+
+let deviceIndex = 1;
+
+function setDevice(deviceInfos) {
+
+  let videoSource;
+
+  if (window.stream) {
+    window.stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+  }
+
+  console.log(deviceInfos);
+
+  let videoInputs = [];
+
+  for (var i = 0; i !== deviceInfos.length; ++i) {
+    var deviceInfo = deviceInfos[i];
+    var option = document.createElement('option');
+    option.value = deviceInfo.deviceId;
+    if (deviceInfo.kind === 'videoinput') {
+      videoInputs.push(deviceInfo);
+    } else {
+      // console.log('Some other kind of source/device: ', deviceInfo);
+    }
+  }
+
+  videoSource = videoInputs[deviceIndex].deviceId;
+  console.log(videoInputs);
+  console.log(videoInputs[deviceIndex]);
+
+  constraints.video.deviceId = videoSource;
+  constraintsFacetimeCam.video.deviceId = videoSource;
+  constraints640.video.deviceId = videoSource;
+}
+
+
 var constraints = {
   video: {
+deviceId: ''
+  ? {
+    exact: ''
+  }
+  : undefined,
     width: 960,
     height: 720,
     frameRate: 24
   }
 };
+
+console.log(constraints);
+
 var constraintsFacetimeCam = {
   video: {
     width: 1280,
@@ -25,17 +71,26 @@ var constraintsFacetimeCam = {
 
 var constraints640 = {
   video: {
+    deviceId: ''
+      ? {
+        exact: ''
+      }
+      : undefined,
     width: 640,
     height: 480,
     frameRate: 24
   }
 
 };
+
+navigator.mediaDevices.enumerateDevices().then(setDevice);
+
+
   function startCamera() {
     // Start video playback once the camera was fetched.
     function onStreamFetched(mediaStream) {
       webcam.srcObject = mediaStream;
-      webcam.play();
+      // webcam.play();
       // Check whether we know the video dimensions yet, if so, start BRFv4.
       function onStreamDimensionsAvailable() {
         if (webcam.videoWidth === 0) {
@@ -52,6 +107,7 @@ var constraints640 = {
       alert("No camera available.");
     });
   }
+
   function waitForSDK() {
     if (brfv4 === null) {
       brfv4 = {
@@ -91,3 +147,5 @@ var constraints640 = {
     brfManager.update(imageDataCtx.getImageData(0, 0, resolution.width, resolution.height).data);
     return brfManager.getFaces();
   }
+
+  window.onload = startCamera;
